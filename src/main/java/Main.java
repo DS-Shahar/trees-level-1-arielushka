@@ -29,10 +29,18 @@ public class Main {
     }
 
     public static int maxValue(BinNode<Integer> t) {
-        if (t == null)
-            return Integer.MIN_VALUE;
-        return Math.max(t.getValue(), Math.max(maxValue(t.getLeft()), maxValue(t.getRight())));
+    int max = t.getValue();
+
+    if (t.hasLeft()) {
+        max = Math.max(max, maxValue(t.getLeft()));
     }
+
+    if (t.hasRight()) {
+        max = Math.max(max, maxValue(t.getRight()));
+    }
+
+    return max;
+}
 
     public static boolean isPerfect(BinNode<Integer> t) {
         if (t == null)
