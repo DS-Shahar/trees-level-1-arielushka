@@ -7,6 +7,11 @@ public class Trees1 {
         System.out.println(ex2(t));
         System.out.println(ex3(t));
         System.out.println(ex4(t));
+        BinNode<Integer> t1 = buildTree1();
+        BinNode<Integer> t2 = buildTree2();
+        System.out.println(ex14(t1));
+        System.out.println(ex18(t1, t2));
+        System.out.println(ex20(t1));
     }
 
     public static BinNode<Integer> buildTree() {
@@ -58,5 +63,71 @@ public class Trees1 {
         if (t.hasRight() && t.getRight().getValue() % 2 != 0) 
             return true;
         return false;
+    }
+    public static BinNode<Integer> buildTree1() {
+        BinNode<Integer> n1 = new BinNode<>(10);
+        BinNode<Integer> n2 = new BinNode<>(-5);
+        BinNode<Integer> n3 = new BinNode<>(20);
+        n1.setLeft(n2);
+        n1.setRight(n3);
+        return n1;
+    }
+
+    public static BinNode<Integer> buildTree2() {
+        BinNode<Integer> n1 = new BinNode<>(10);
+        BinNode<Integer> n2 = new BinNode<>(-5);
+        n1.setLeft(n2);
+        return n1;
+    }
+
+    public static int ex14(BinNode<Integer> t) {
+        int count= 0;
+        if (t == null)
+            return 0;
+        if(!t.hasLeft() && !t.hasRight()
+           count++;
+        return count + ex14(t.getLeft()) + ex14(t.getRight());
+    }
+
+    public static boolean ex18(BinNode<Integer> t1, BinNode<Integer> t2) {
+        if (t2 == null)
+            return true;
+        if (!contains(t1, t2.getValue()))
+            return false;
+        return ex18(t1, t2.getLeft()) && ex18(t1, t2.getRight());
+    }
+
+    public static boolean contains(BinNode<Integer> t, int val) {
+        if (t == null)
+            return false;
+        if (t.getValue() == val)
+            return true;
+        return contains(t.getLeft(), val) || contains(t.getRight(), val);
+    }
+
+    public static int ex20(BinNode<Integer> t) {
+        if (t == null)
+            return 0;
+        return sumPos(t) - Math.abs(sumNeg(t));
+    }
+
+    public static int sumPos(BinNode<Integer> t) {
+        if (t == null)
+            return 0;
+        int current = 0;
+        if (t.getValue() > 0) {
+            current = t.getValue();
+        }
+        return current + sumPos(t.getLeft()) + sumPos(t.getRight());
+    }
+
+    public static int sumNeg(BinNode<Integer> t) {
+        if (t == null)
+            return 0;
+        int current = 0;
+        if (t.getValue() < 0) {
+            current = t.getValue();
+        }
+        return current + sumNeg(t.getLeft()) + sumNeg(t.getRight());
     }
 }
