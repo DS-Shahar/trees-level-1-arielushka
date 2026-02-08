@@ -1,4 +1,5 @@
-public class Trees1 {
+
+public class Main {
 
     public static void main(String[] args) {
         BinNode<Integer> t = buildTree();
@@ -17,6 +18,8 @@ public class Trees1 {
         System.out.println(getHeight(t));
         System.out.println(maxValue(t));
         System.out.println(isPerfect(t));
+        System.out.println(ex21(t));
+        
     }
 
     public static int getHeight(BinNode<Integer> t) {
@@ -141,5 +144,15 @@ public class Trees1 {
             return 0;
         int current = (t.getValue() < 0) ? t.getValue() : 0;
         return current + sumNeg(t.getLeft()) + sumNeg(t.getRight());
+    }
+    public static boolean ex21(BinNode<Integer> t) {
+        if (t == null)
+            return true;
+        
+        int diff = getHeight(t.getLeft()) - getHeight(t.getRight());
+        if (Math.abs(diff) > 1)
+            return false;
+        
+        return ex21(t.getLeft()) && ex21(t.getRight());
     }
 }
